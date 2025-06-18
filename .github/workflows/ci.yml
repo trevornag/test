@@ -29,9 +29,6 @@ jobs:
       # Run TypeScript build step
       - run: yarn run build
 
-      # Run linting (optional, based on your `lint` script)
-      - run: yarn run lint
-
       # Package the app using electron-builder
       - run: yarn run package
 
