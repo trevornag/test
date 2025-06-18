@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: yarn install
-      - run: yarn audit --audit-level=high
+      - run: yarn audit --level high
 
   notify:
     name: Mock Build Notification
