@@ -1,0 +1,60 @@
+name: CI Build & Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build, Package & Upload
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Caching dependencies to speed up builds
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      # Install dependencies
+      - run: yarn install
+
+      # Run TypeScript build step
+      - run: yarn run build
+
+      # Run linting (optional, based on your `lint` script)
+      - run: yarn run lint
+
+      # Package the app using electron-builder
+      - run: yarn run package
+
+      # Upload the built artifact to GitHub (e.g., .tar.gz, .zip, .AppImage)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packaged-electron-app
+          path: dist/
+
+  security:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: yarn install
+      - run: yarn audit --audit-level=high
+
+  notify:
+    name: Mock Build Notification
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: |
+          echo "Build URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "Status: ${{ needs.build.result }}"
+          echo "Triggered by: ${{ github.actor }}"
