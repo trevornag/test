@@ -32,6 +32,14 @@ jobs:
       # Package the app using electron-builder
       - run: yarn run package
 
+       # Debug: List files in the dist/ directory
+      - name: List package directory
+        run: dir package/
+
+        # Debug: List files in the dist/ directory
+      - name: List dist directory
+        run: dir dist/
+
       # Upload the built artifact to GitHub (e.g., .tar.gz, .zip, .AppImage)
       - uses: actions/upload-artifact@v4
         with:
