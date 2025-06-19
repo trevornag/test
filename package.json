@@ -45,7 +45,7 @@
           "portable"
         ],
         "icon": "build/icons/icon.ico",
-        "publisher": "Publisher"
+        "publisherName": "Publisher"
       },
     "directories": {
       "buildResources": "dist",
