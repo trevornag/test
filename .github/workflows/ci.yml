@@ -38,7 +38,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: packaged-electron-app
-          path: package/
+          path: dist/
 
 # Feature 3: Creating a job where vulnerabilities of high or critical level are found
   security:
