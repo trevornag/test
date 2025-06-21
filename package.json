@@ -38,15 +38,6 @@
   },
   "main": "main.js",
   "build": {
-     "appId": "com.example.electron-secure-defaults",
-      "win": {
-        "target": [
-          "nsis",      
-          "portable"
-        ],
-        "icon": "build/icons/icon.ico",
-        "publisherName": "Publisher"
-      },
     "directories": {
       "buildResources": "dist",
       "output": "package"
