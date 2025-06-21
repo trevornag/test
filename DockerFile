@@ -1,3 +1,4 @@
+# Feature 5: Containerize the build.  Create a container image with necessary dependencies to local and CI builds in a consistent and reproducible way, and use that container in CI. 
 FROM node:20-bullseye
 
 WORKDIR /app

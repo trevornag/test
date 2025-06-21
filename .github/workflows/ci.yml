@@ -38,14 +38,16 @@ jobs:
           name: packaged-electron-app
           path: package/
 
+# Feature 3: Creating a job where vulnerabilities of high or critical level are found
   security:
     name: Dependency Vulnerability Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: yarn install
-      - run: yarn audit --level high
+      - run: yarn audit --level high # Used this https://classic.yarnpkg.com/lang/en/docs/cli/audit/
 
+# Feature 2: Create a notification after the build. It should include, URL, status, other info (who triggered it)
   notify:
     name: Mock Build Notification
     runs-on: ubuntu-latest
