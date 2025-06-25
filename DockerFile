@@ -1,13 +1,18 @@
 # Feature 5: Containerize the build.  Create a container image with necessary dependencies to local and CI builds in a consistent and reproducible way, and use that container in CI. 
-FROM node:20-bullseye
+#Base image with Node.js 20 on Debian Bullseye
+FROM node:20-bullseye 
+# Set working directory, just standard workind dir
+WORKDIR /app 
 
-WORKDIR /app
-
-RUN npm install -g electron-builder
+# Enable Yarn using Corepack (built into Node)
+RUN corepack enable && corepack prepare yarn@stable --activate
+# Now yarn is available
+RUN yarn global add electron-builder
 
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN yarn install
 
+# Copy the rest of the project into the image
 COPY . .
 
 CMD ["bash"]
